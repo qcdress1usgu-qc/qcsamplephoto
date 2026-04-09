@@ -6,40 +6,24 @@
     <title>FORM SAMPLE PHOTO</title>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.1/dist/browser-image-compression.js"></script>
     
     <style>
         :root { 
-            --bg-body: #f0f4f8; 
-            --bg-card: #ffffff; 
-            --bg-input: #f8fafc; 
-            --bg-section: #f8fafc; 
-            --text-main: #334155; 
-            --text-sub: #64748b; 
-            --text-brand: #0f172a; 
-            --border-line: #cbd5e1; 
-            --border-focus: #3b82f6; 
-            --primary: #3b82f6; 
-            --primary-grad: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
-            --accent: #f59e0b; 
-            --success: #10b981; 
-            --danger: #ef4444; 
-            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.1); 
-            --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.1); 
+            --bg-body: #f0f4f8; --bg-card: #ffffff; --bg-input: #f8fafc; --bg-section: #f8fafc; 
+            --text-main: #334155; --text-sub: #64748b; --text-brand: #0f172a; 
+            --border-line: #cbd5e1; --border-focus: #3b82f6; 
+            --primary: #3b82f6; --primary-grad: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+            --accent: #f59e0b; --success: #10b981; --danger: #ef4444; 
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.1); --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.1); 
             --shadow-btn: 0 4px 14px 0 rgba(59, 130, 246, 0.35);
         }
 
         .dark-mode {
-            --bg-body: #0f172a; 
-            --bg-card: #1e293b; 
-            --bg-input: #334155; 
-            --bg-section: #1e293b; 
-            --text-main: #f8fafc; 
-            --text-sub: #94a3b8; 
-            --text-brand: #ffffff; 
-            --border-line: #475569; 
-            --border-focus: #60a5fa;
-            --primary: #60a5fa; 
-            --primary-grad: linear-gradient(135deg, #3b82f6 0%, #93c5fd 100%);
+            --bg-body: #0f172a; --bg-card: #1e293b; --bg-input: #334155; --bg-section: #1e293b; 
+            --text-main: #f8fafc; --text-sub: #94a3b8; --text-brand: #ffffff; 
+            --border-line: #475569; --border-focus: #60a5fa;
+            --primary: #60a5fa; --primary-grad: linear-gradient(135deg, #3b82f6 0%, #93c5fd 100%);
             --shadow-btn: 0 4px 14px 0 rgba(96, 165, 250, 0.2);
         }
 
@@ -79,14 +63,15 @@
 
 <div id="loading">
     <div class="spinner"></div>
-    <div id="loading-text">MENGIRIM LAPORAN FOTO...</div>
+    <div id="loading-text" style="margin-bottom: 10px;">MENGOMPRES FOTO...</div>
+    <div style="font-size: 11px; font-weight: normal; color: #cbd5e1;">(Bisa butuh waktu jika foto besar)</div>
 </div>
 
 <div class="header">
     <div class="header-content">
         <div class="title-area">
             <div class="main-title">SAMPLE PHOTO REPORT</div>
-            <div class="sub-title">FORM UPLOAD FOTO <span class="version-badge">v1.1</span></div>
+            <div class="sub-title">FORM UPLOAD FOTO <span class="version-badge">v1</span></div>
         </div>
         <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" type="button">DARK</button>
     </div>
@@ -118,7 +103,7 @@
         </div>
 
         <div class="card">
-            <div class="card-header">LAMPIRAN FOTO FOTOGRAFI (MAX 2MB / FOTO)</div>
+            <div class="card-header">LAMPIRAN FOTO FOTOGRAFI</div>
             
             <div class="input-group">
                 <label>SAMPLE 1 - FRONT VIEW</label>
@@ -152,9 +137,6 @@
     // --- KONFIGURASI URL APPS SCRIPT ANDA ---
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxe_bqiHs0VeSLSoXPS8DsXWT3UCmc4YvF7OfcVmte4955MaEk-_sYTfUDKDR3qqDySXg/exec";
 
-    // Batas maksimal ukuran file: 2 MB (dalam Bytes)
-    const MAX_FILE_SIZE = 2 * 1024 * 1024; 
-
     function toggleTheme() { 
         document.body.classList.toggle('dark-mode'); 
         const isDark = document.body.classList.contains('dark-mode');
@@ -185,41 +167,15 @@
     const loader = document.getElementById('loading');
     const loadingText = document.getElementById('loading-text');
 
-    // Fungsi Pembantu untuk Cek Ukuran Foto
-    function isFileTooLarge(file) {
-        return file && file.size > MAX_FILE_SIZE;
-    }
-
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // 1. Ambil File untuk di-cek ukurannya
-        const file1Obj = document.getElementById('file1').files[0];
-        const file2Obj = document.getElementById('file2').files[0];
-        const defectInputs = document.querySelectorAll('.defect-file');
-        
-        // 2. Lakukan Validasi Tolak Jika > 2MB
-        if (isFileTooLarge(file1Obj)) {
-            Swal.fire('File Terlalu Besar!', 'SAMPLE 1 - FRONT VIEW melebihi ukuran maksimal 2MB. Silakan ganti foto.', 'error');
-            return;
-        }
-        if (isFileTooLarge(file2Obj)) {
-            Swal.fire('File Terlalu Besar!', 'SAMPLE 2 - BACK VIEW melebihi ukuran maksimal 2MB. Silakan ganti foto.', 'error');
-            return;
-        }
-        for (let i = 0; i < defectInputs.length; i++) {
-            if (isFileTooLarge(defectInputs[i].files[0])) {
-                Swal.fire('File Terlalu Besar!', `Foto DEFECT ${i+1} melebihi ukuran maksimal 2MB. Silakan ganti foto.`, 'error');
-                return;
-            }
-        }
-
-        // 3. Jika Semua Aman, Siapkan Data
         const tgl = document.getElementById('tanggal').value;
         const buyer = document.getElementById('buyer').value.toUpperCase();
         const style = document.getElementById('style').value.toUpperCase();
         const color = document.getElementById('color').value.toUpperCase();
         
+        const defectInputs = document.querySelectorAll('.defect-file');
         let filledDefects = 0;
         for(let i=0; i<defectInputs.length; i++){
             if(defectInputs[i].files.length > 0) filledDefects++;
@@ -251,18 +207,18 @@
         loader.style.display = 'flex';
 
         try {
-            loadingText.innerText = "MENYIAPKAN DATA...";
+            loadingText.innerText = "MENGOMPRES FOTO...";
             
             let defectBase64Array = [];
             for(let i=0; i<defectInputs.length; i++){
-                let fileData = await getFileData(defectInputs[i]);
+                let fileData = await getCompressedFileData(defectInputs[i]);
                 if(fileData && fileData.size > 0) {
                     defectBase64Array.push(fileData);
                 }
             }
 
-            const file1Data = await getFileData(document.getElementById('file1'));
-            const file2Data = await getFileData(document.getElementById('file2'));
+            const file1Data = await getCompressedFileData(document.getElementById('file1'));
+            const file2Data = await getCompressedFileData(document.getElementById('file2'));
 
             loadingText.innerText = "MENGIRIM KE GOOGLE SHEETS...";
 
@@ -315,38 +271,65 @@
             loader.style.display = 'none';
             btn.disabled = false;
             btn.innerText = "CONFIRM & UPLOAD REPORT";
-            Swal.fire('Gagal!', 'Terjadi kesalahan jaringan: ' + error.message, 'error');
+            Swal.fire('Gagal!', 'Terjadi kesalahan: ' + error.message, 'error');
         }
     });
 
-    // --- FUNGSI AMBIL BASE64 & MENGIRIM DIMENSI ASLI (TANPA KOMPRESI) ---
-    async function getFileData(input) {
+    // --- FUNGSI KOMPRESI CERDAS MENGGUNAKAN LIBRARY ---
+    async function getCompressedFileData(input) {
         const file = input.files[0];
         if (!file) return { size: 0 }; 
 
-        return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
+        // Opsi kompresi: targetkan maksimal 0.5 MB (500KB) dan dimensi max 1200px
+        const options = {
+            maxSizeMB: 0.45,         // Target aman di bawah 500KB
+            maxWidthOrHeight: 1200,  // Resolusi maksimal (menjaga rasio asli)
+            useWebWorker: true       // Menggunakan worker agar browser tidak freeze
+        };
+
+        try {
+            // Proses kompresi
+            const compressedFile = await imageCompression(file, options);
             
-            reader.onload = (event) => {
-                const img = new Image();
-                img.src = event.target.result;
-                
-                img.onload = () => {
-                    // Cukup ambil String Base64 langsung dari reader (Pure Image)
-                    const base64String = event.target.result.split(',')[1];
-                    
+            // Dapatkan dimensi asli gambar dari file yang sudah dikompresi
+            const imageBitmap = await createImageBitmap(compressedFile);
+            const width = imageBitmap.width;
+            const height = imageBitmap.height;
+
+            // Ubah file hasil kompresi menjadi Base64
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(compressedFile);
+                reader.onloadend = () => {
+                    const base64String = reader.result.split(',')[1];
                     resolve({
                         base64: base64String,
+                        type: compressedFile.type || 'image/jpeg',
+                        name: compressedFile.name || file.name,
+                        size: compressedFile.size,
+                        width: width,   // Kirim dimensi lebar asli
+                        height: height  // Kirim dimensi tinggi asli
+                    });
+                };
+            });
+        } catch (error) {
+            console.error("Gagal mengompres foto:", error);
+            // Fallback jika kompresi gagal, kirim file aslinya (meskipun besar)
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onloadend = () => {
+                    resolve({
+                        base64: reader.result.split(',')[1],
                         type: file.type,
                         name: file.name,
                         size: file.size,
-                        width: img.width,   // Kunci Rasio: Kirim dimensi lebar asli
-                        height: img.height  // Kunci Rasio: Kirim dimensi tinggi asli
+                        width: 1200, // Fallback width
+                        height: 1200 // Fallback height
                     });
                 };
-            };
-        });
+            });
+        }
     }
 </script>
 
