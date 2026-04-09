@@ -8,7 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <style>
-        /* --- PALET WARNA INDUSTRIAL SOFT BLUE --- */
         :root { 
             --bg-body: #f0f4f8; 
             --bg-card: #ffffff; 
@@ -29,7 +28,6 @@
             --shadow-btn: 0 4px 14px 0 rgba(59, 130, 246, 0.35);
         }
 
-        /* --- PALET DARK MODE --- */
         .dark-mode {
             --bg-body: #0f172a; 
             --bg-card: #1e293b; 
@@ -45,53 +43,33 @@
             --shadow-btn: 0 4px 14px 0 rgba(96, 165, 250, 0.2);
         }
 
-        body { 
-            font-family: 'Segoe UI', system-ui, sans-serif; 
-            background: var(--bg-body); 
-            margin: 0; 
-            padding-bottom: 120px; 
-            font-size: 14px; 
-            color: var(--text-main); 
-            transition: background-color 0.3s, color 0.3s; 
-        }
-
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg-body); margin: 0; padding-bottom: 120px; font-size: 14px; color: var(--text-main); transition: background-color 0.3s, color 0.3s; }
         .header { background: var(--bg-card); border-bottom: 3px solid var(--primary); box-shadow: var(--shadow-md); padding: 20px 15px; transition: background-color 0.3s; }
         .header-content { display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; }
         .title-area { display: flex; flex-direction: column; }
         .main-title { font-weight: 900; color: var(--text-brand); font-size: 1.3rem; letter-spacing: 1px; }
         .sub-title { font-size: 10px; color: var(--text-sub); font-weight: bold; letter-spacing: 1.5px; margin-top: 4px; }
         .version-badge { background: var(--primary); color: white; padding: 2px 6px; border-radius: 4px; font-size: 9px; margin-left: 6px; font-weight: 900;}
-        
         .theme-toggle { background: var(--bg-body); border: 1px solid var(--border-line); color: var(--text-main); border-radius: 6px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer; box-shadow: var(--shadow-sm); transition: all 0.2s; letter-spacing: 1px;}
-
         .container { padding: 15px; max-width: 800px; margin: 0 auto; }
         .card { background: var(--bg-card); border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-line); }
         .card-header { border-bottom: 2px solid var(--primary); padding-bottom: 8px; margin-bottom: 15px; font-size: 12px; color: var(--primary); font-weight: 800; text-transform: uppercase; }
-
         .input-group { margin-bottom: 16px; }
         label { display: block; font-size: 11px; font-weight: 800; color: var(--text-sub); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
         .req::after { content: " *"; color: var(--danger); font-size: 14px;}
-        
         input { width: 100%; padding: 14px 12px; border: 1px solid var(--border-line); border-radius: 6px; box-sizing: border-box; font-size: 14px; font-weight: 600; background: var(--bg-input); color: var(--text-main); transition: border-color 0.2s, box-shadow 0.2s; }
         input:focus { border-color: var(--border-focus); outline: none; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); }
-        
         input[type="file"] { padding: 10px; background: var(--bg-section); border: 1px dashed var(--border-line); cursor: pointer; }
-
         .btn-add-defect { background: var(--bg-body); color: var(--primary); border: 2px dashed var(--primary); padding: 12px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: all 0.2s; }
         .btn-add-defect:hover { background: var(--bg-input); }
-
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         @media (max-width: 600px) { .grid { grid-template-columns: 1fr; gap: 12px; } }
-
         .action-buttons { position: fixed; bottom: 15px; left: 15px; right: 15px; max-width: 770px; margin: 0 auto; z-index: 1000; }
         .btn-server { background: var(--primary-grad); box-shadow: var(--shadow-btn); font-size: 14px; width: 100%; padding: 16px; border: none; border-radius: 8px; font-weight: 900; cursor: pointer; color: white; letter-spacing: 1px; text-align: center; }
         .btn-server:disabled { opacity: 0.7; cursor: not-allowed; }
-
         #loading { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); color: white; z-index: 2000; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; flex-direction: column; text-align: center; backdrop-filter: blur(4px); letter-spacing: 1px; }
         .spinner { border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid var(--primary); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 20px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Styling Tabel Rangkuman SweetAlert */
         .summary-table { width: 100%; text-align: left; font-size: 13px; margin-top: 10px; border-collapse: collapse; }
         .summary-table th { color: var(--text-sub); padding: 6px 0; border-bottom: 1px solid var(--border-line); width: 30%; }
         .summary-table td { color: var(--text-brand); padding: 6px 0; font-weight: bold; border-bottom: 1px solid var(--border-line); }
@@ -171,7 +149,6 @@
 </form>
 
 <script>
-    // --- KONFIGURASI URL APPS SCRIPT ANDA ---
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxe_bqiHs0VeSLSoXPS8DsXWT3UCmc4YvF7OfcVmte4955MaEk-_sYTfUDKDR3qqDySXg/exec";
 
     function toggleTheme() { 
@@ -305,7 +282,7 @@
         }
     });
 
-    // --- FITUR AUTO-COMPRESS (TARGET ~1 MB - 1.5 MB) ---
+    // --- REVISI: RESOLUSI DITURUNKAN AGAR GOOGLE SHEETS TIDAK ERROR ---
     async function getFileData(input) {
         const file = input.files[0];
         if (!file) return { size: 0 }; 
@@ -321,10 +298,10 @@
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
                     
-                    // Resolusi besar agar tidak blur (menyesuaikan limit ~1.5MB)
-                    const MAX_WIDTH = 2500;
-                    const MAX_HEIGHT = 2500;
-                    const QUALITY = 0.85; // Kualitas 85% (tinggi)
+                    // Ubah jadi 1024x1024 agar aman untuk Floating Image di Google Sheets
+                    const MAX_WIDTH = 1024;
+                    const MAX_HEIGHT = 1024;
+                    const QUALITY = 0.8; 
                     
                     let width = img.width;
                     let height = img.height;
@@ -347,7 +324,6 @@
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
 
-                    // Paksa konversi ke format JPEG dengan kualitas 85%
                     const compressedDataUrl = canvas.toDataURL('image/jpeg', QUALITY);
                     const base64String = compressedDataUrl.split(',')[1];
 
