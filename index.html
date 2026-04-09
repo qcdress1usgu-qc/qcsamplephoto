@@ -86,7 +86,7 @@
     <div class="header-content">
         <div class="title-area">
             <div class="main-title">SAMPLE PHOTO REPORT</div>
-            <div class="sub-title">FORM UPLOAD FOTO <span class="version-badge">v1.0</span></div>
+            <div class="sub-title">FORM UPLOAD FOTO <span class="version-badge">v1.1</span></div>
         </div>
         <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" type="button">DARK</button>
     </div>
@@ -297,22 +297,23 @@
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
                     
-                    // Target kompresi ~400KB dengan batas resolusi 1200px
-                    const MAX_SIZE = 1200; 
-                    const QUALITY = 0.7; // Kualitas 70%
+                    // Kompresi stabil di ~400KB
+                    const MAX_WIDTH = 1200;
+                    const MAX_HEIGHT = 1200;
+                    const QUALITY = 0.7; 
                     
                     let width = img.width;
                     let height = img.height;
 
                     if (width > height) {
-                        if (width > MAX_SIZE) {
-                            height *= MAX_SIZE / width;
-                            width = MAX_SIZE;
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
                         }
                     } else {
-                        if (height > MAX_SIZE) {
-                            width *= MAX_SIZE / height;
-                            height = MAX_SIZE;
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
                         }
                     }
 
@@ -330,8 +331,8 @@
                         type: 'image/jpeg',
                         name: file.name,
                         size: Math.round(base64String.length * (3/4)),
-                        width: Math.round(width), // Mengirim lebar asli setelah resize
-                        height: Math.round(height) // Mengirim tinggi asli setelah resize
+                        width: width,     // KUNCI RASIO: Kirim dimensi lebar asli ke server
+                        height: height    // KUNCI RASIO: Kirim dimensi tinggi asli ke server
                     });
                 };
             };
