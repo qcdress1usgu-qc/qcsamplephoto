@@ -55,159 +55,46 @@
             transition: background-color 0.3s, color 0.3s; 
         }
 
-        .header { 
-            background: var(--bg-card); 
-            border-bottom: 3px solid var(--primary); 
-            box-shadow: var(--shadow-md); 
-            padding: 20px 15px; 
-            transition: background-color 0.3s; 
-        }
+        .header { background: var(--bg-card); border-bottom: 3px solid var(--primary); box-shadow: var(--shadow-md); padding: 20px 15px; transition: background-color 0.3s; }
         .header-content { display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto; }
         .title-area { display: flex; flex-direction: column; }
         .main-title { font-weight: 900; color: var(--text-brand); font-size: 1.3rem; letter-spacing: 1px; }
         .sub-title { font-size: 10px; color: var(--text-sub); font-weight: bold; letter-spacing: 1.5px; margin-top: 4px; }
         .version-badge { background: var(--primary); color: white; padding: 2px 6px; border-radius: 4px; font-size: 9px; margin-left: 6px; font-weight: 900;}
         
-        .theme-toggle { 
-            background: var(--bg-body); 
-            border: 1px solid var(--border-line); 
-            color: var(--text-main); 
-            border-radius: 6px; 
-            padding: 6px 12px; 
-            font-size: 11px; 
-            font-weight: 800; 
-            cursor: pointer; 
-            box-shadow: var(--shadow-sm); 
-            transition: all 0.2s; 
-            letter-spacing: 1px;
-        }
+        .theme-toggle { background: var(--bg-body); border: 1px solid var(--border-line); color: var(--text-main); border-radius: 6px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer; box-shadow: var(--shadow-sm); transition: all 0.2s; letter-spacing: 1px;}
 
         .container { padding: 15px; max-width: 800px; margin: 0 auto; }
-        .card { 
-            background: var(--bg-card); 
-            border-radius: 10px; 
-            padding: 20px; 
-            margin-bottom: 20px; 
-            box-shadow: var(--shadow-sm); 
-            border: 1px solid var(--border-line); 
-        }
-        .card-header {
-            border-bottom: 2px solid var(--primary); 
-            padding-bottom: 8px; 
-            margin-bottom: 15px; 
-            font-size: 12px; 
-            color: var(--primary); 
-            font-weight: 800;
-            text-transform: uppercase;
-        }
+        .card { background: var(--bg-card); border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-line); }
+        .card-header { border-bottom: 2px solid var(--primary); padding-bottom: 8px; margin-bottom: 15px; font-size: 12px; color: var(--primary); font-weight: 800; text-transform: uppercase; }
 
         .input-group { margin-bottom: 16px; }
-        label { 
-            display: block; 
-            font-size: 11px; 
-            font-weight: 800; 
-            color: var(--text-sub); 
-            text-transform: uppercase; 
-            margin-bottom: 8px; 
-            letter-spacing: 0.5px; 
-        }
+        label { display: block; font-size: 11px; font-weight: 800; color: var(--text-sub); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
         .req::after { content: " *"; color: var(--danger); font-size: 14px;}
         
-        input { 
-            width: 100%; 
-            padding: 14px 12px; 
-            border: 1px solid var(--border-line); 
-            border-radius: 6px; 
-            box-sizing: border-box; 
-            font-size: 14px; 
-            font-weight: 600; 
-            background: var(--bg-input); 
-            color: var(--text-main); 
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        input:focus { 
-            border-color: var(--border-focus); 
-            outline: none; 
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); 
-        }
+        input { width: 100%; padding: 14px 12px; border: 1px solid var(--border-line); border-radius: 6px; box-sizing: border-box; font-size: 14px; font-weight: 600; background: var(--bg-input); color: var(--text-main); transition: border-color 0.2s, box-shadow 0.2s; }
+        input:focus { border-color: var(--border-focus); outline: none; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); }
         
-        input[type="file"] {
-            padding: 10px;
-            background: var(--bg-section);
-            border: 1px dashed var(--border-line);
-            cursor: pointer;
-        }
+        input[type="file"] { padding: 10px; background: var(--bg-section); border: 1px dashed var(--border-line); cursor: pointer; }
 
-        /* Tombol Tambah Defect */
-        .btn-add-defect {
-            background: var(--bg-body);
-            color: var(--primary);
-            border: 2px dashed var(--primary);
-            padding: 12px;
-            width: 100%;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.2s;
-        }
+        .btn-add-defect { background: var(--bg-body); color: var(--primary); border: 2px dashed var(--primary); padding: 12px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: all 0.2s; }
         .btn-add-defect:hover { background: var(--bg-input); }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        @media (max-width: 600px) {
-            .grid { grid-template-columns: 1fr; gap: 12px; }
-        }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; gap: 12px; } }
 
-        .action-buttons { 
-            position: fixed; 
-            bottom: 15px; 
-            left: 15px; 
-            right: 15px; 
-            max-width: 770px; 
-            margin: 0 auto; 
-            z-index: 1000; 
-        }
-        .btn-server { 
-            background: var(--primary-grad); 
-            box-shadow: var(--shadow-btn); 
-            font-size: 14px; 
-            width: 100%; 
-            padding: 16px;
-            border: none; 
-            border-radius: 8px; 
-            font-weight: 900; 
-            cursor: pointer; 
-            color: white; 
-            letter-spacing: 1px;
-            text-align: center;
-        }
+        .action-buttons { position: fixed; bottom: 15px; left: 15px; right: 15px; max-width: 770px; margin: 0 auto; z-index: 1000; }
+        .btn-server { background: var(--primary-grad); box-shadow: var(--shadow-btn); font-size: 14px; width: 100%; padding: 16px; border: none; border-radius: 8px; font-weight: 900; cursor: pointer; color: white; letter-spacing: 1px; text-align: center; }
         .btn-server:disabled { opacity: 0.7; cursor: not-allowed; }
 
-        #loading { 
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(15, 23, 42, 0.9); 
-            color: white; 
-            z-index: 2000; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 14px; 
-            font-weight: bold; 
-            flex-direction: column; 
-            text-align: center; 
-            backdrop-filter: blur(4px); 
-            letter-spacing: 1px;
-        }
-        .spinner { 
-            border: 4px solid rgba(255,255,255,0.1); 
-            border-top: 4px solid var(--primary); 
-            border-radius: 50%; 
-            width: 50px; height: 50px; 
-            animation: spin 1s linear infinite; 
-            margin-bottom: 20px; 
-        }
+        #loading { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); color: white; z-index: 2000; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; flex-direction: column; text-align: center; backdrop-filter: blur(4px); letter-spacing: 1px; }
+        .spinner { border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid var(--primary); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 20px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Styling Tabel Rangkuman SweetAlert */
+        .summary-table { width: 100%; text-align: left; font-size: 13px; margin-top: 10px; border-collapse: collapse; }
+        .summary-table th { color: var(--text-sub); padding: 6px 0; border-bottom: 1px solid var(--border-line); width: 30%; }
+        .summary-table td { color: var(--text-brand); padding: 6px 0; font-weight: bold; border-bottom: 1px solid var(--border-line); }
     </style>
 </head>
 <body>
@@ -284,10 +171,8 @@
 </form>
 
 <script>
-    // --- KONFIGURASI URL APPS SCRIPT ANDA ---
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxe_bqiHs0VeSLSoXPS8DsXWT3UCmc4YvF7OfcVmte4955MaEk-_sYTfUDKDR3qqDySXg/exec";
 
-    // 1. Logika Dark Mode
     function toggleTheme() { 
         document.body.classList.toggle('dark-mode'); 
         const isDark = document.body.classList.contains('dark-mode');
@@ -300,7 +185,6 @@
         if(localStorage.getItem('themeStyle') === 'dark') { toggleTheme(); } 
     };
 
-    // 2. Logika Tambah Defect Dinamis (Bisa nambah terus)
     let defectCount = 1;
     function addDefectInput() {
         defectCount++;
@@ -314,21 +198,53 @@
         container.insertAdjacentHTML('beforeend', html);
     }
 
-    // 3. Logika Upload Menggunakan FETCH API (WAJIB untuk GitHub Pages)
     const form = document.getElementById('inspectionForm');
     const btn = document.getElementById('submitBtn');
     const loader = document.getElementById('loading');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        // Mengambil value untuk dirangkum
+        const tgl = document.getElementById('tanggal').value;
+        const buyer = document.getElementById('buyer').value.toUpperCase();
+        const style = document.getElementById('style').value.toUpperCase();
+        const color = document.getElementById('color').value.toUpperCase();
+        
+        // Menghitung berapa foto defect yang diisi
+        const defectInputs = document.querySelectorAll('.defect-file');
+        let filledDefects = 0;
+        for(let i=0; i<defectInputs.length; i++){
+            if(defectInputs[i].files.length > 0) filledDefects++;
+        }
+
+        // Menampilkan Summary Konfirmasi
+        const konfirmasi = await Swal.fire({
+            title: 'Kirim Laporan?',
+            html: `
+                <table class="summary-table">
+                    <tr><th>TANGGAL</th><td>${tgl}</td></tr>
+                    <tr><th>BUYER</th><td>${buyer}</td></tr>
+                    <tr><th>STYLE</th><td style="color:#3b82f6;">${style}</td></tr>
+                    <tr><th>COLOR</th><td>${color}</td></tr>
+                    <tr><th>DEFECT</th><td style="color:#ef4444;">${filledDefects} Foto Terlampir</td></tr>
+                </table>
+            `,
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3b82f6',
+            cancelButtonColor: '#94a3b8',
+            confirmButtonText: 'Ya, Kirim Data!',
+            cancelButtonText: 'Cek Lagi'
+        });
+
+        if (!konfirmasi.isConfirmed) return;
         
         btn.disabled = true;
         btn.innerText = "MEMPROSES DATA...";
         loader.style.display = 'flex';
 
         try {
-            // Ambil semua file input defect yang ada
-            const defectInputs = document.querySelectorAll('.defect-file');
             let defectBase64Array = [];
             for(let i=0; i<defectInputs.length; i++){
                 let fileData = await getFileData(defectInputs[i]);
@@ -337,19 +253,16 @@
                 }
             }
 
-            // Susun Payload
             const payload = {
-                tanggal: document.getElementById('tanggal').value,
-                buyer: document.getElementById('buyer').value.toUpperCase(),
-                style: document.getElementById('style').value.toUpperCase(),
-                color: document.getElementById('color').value.toUpperCase(),
+                tanggal: tgl,
+                buyer: buyer,
+                style: style,
+                color: color,
                 file1: await getFileData(document.getElementById('file1')),
                 file2: await getFileData(document.getElementById('file2')),
-                defects: defectBase64Array // Mengirim array berapapun jumlah defectnya
+                defects: defectBase64Array 
             };
 
-            // Gunakan fetch dengan method POST. 
-            // Header text/plain penting agar tidak ditolak CORS oleh Google.
             const response = await fetch(SCRIPT_URL, {
                 method: 'POST',
                 body: JSON.stringify(payload),
@@ -374,7 +287,6 @@
                     form.reset();
                     document.getElementById('tanggal').valueAsDate = new Date();
                     
-                    // Reset kolom defect kembali jadi 1
                     document.getElementById('defect-container').innerHTML = `
                         <div class="input-group defect-item">
                             <label>DEFECT 1 - DETAIL MASALAH</label>
@@ -395,7 +307,6 @@
         }
     });
 
-    // 4. Konversi File ke Base64
     async function getFileData(input) {
         const file = input.files[0];
         if (!file) return { size: 0 }; 
