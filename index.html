@@ -6,40 +6,24 @@
     <title>FORM SAMPLE PHOTO</title>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.1/dist/browser-image-compression.js"></script>
     
     <style>
         :root { 
-            --bg-body: #f0f4f8; 
-            --bg-card: #ffffff; 
-            --bg-input: #f8fafc; 
-            --bg-section: #f8fafc; 
-            --text-main: #334155; 
-            --text-sub: #64748b; 
-            --text-brand: #0f172a; 
-            --border-line: #cbd5e1; 
-            --border-focus: #3b82f6; 
-            --primary: #3b82f6; 
-            --primary-grad: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
-            --accent: #f59e0b; 
-            --success: #10b981; 
-            --danger: #ef4444; 
-            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.1); 
-            --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.1); 
+            --bg-body: #f0f4f8; --bg-card: #ffffff; --bg-input: #f8fafc; --bg-section: #f8fafc; 
+            --text-main: #334155; --text-sub: #64748b; --text-brand: #0f172a; 
+            --border-line: #cbd5e1; --border-focus: #3b82f6; 
+            --primary: #3b82f6; --primary-grad: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+            --accent: #f59e0b; --success: #10b981; --danger: #ef4444; 
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.1); --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.1); 
             --shadow-btn: 0 4px 14px 0 rgba(59, 130, 246, 0.35);
         }
 
         .dark-mode {
-            --bg-body: #0f172a; 
-            --bg-card: #1e293b; 
-            --bg-input: #334155; 
-            --bg-section: #1e293b; 
-            --text-main: #f8fafc; 
-            --text-sub: #94a3b8; 
-            --text-brand: #ffffff; 
-            --border-line: #475569; 
-            --border-focus: #60a5fa;
-            --primary: #60a5fa; 
-            --primary-grad: linear-gradient(135deg, #3b82f6 0%, #93c5fd 100%);
+            --bg-body: #0f172a; --bg-card: #1e293b; --bg-input: #334155; --bg-section: #1e293b; 
+            --text-main: #f8fafc; --text-sub: #94a3b8; --text-brand: #ffffff; 
+            --border-line: #475569; --border-focus: #60a5fa;
+            --primary: #60a5fa; --primary-grad: linear-gradient(135deg, #3b82f6 0%, #93c5fd 100%);
             --shadow-btn: 0 4px 14px 0 rgba(96, 165, 250, 0.2);
         }
 
@@ -79,14 +63,15 @@
 
 <div id="loading">
     <div class="spinner"></div>
-    <div id="loading-text">MENGIRIM LAPORAN FOTO...</div>
+    <div id="loading-text" style="margin-bottom: 10px;">MENGOMPRES FOTO...</div>
+    <div style="font-size: 11px; font-weight: normal; color: #cbd5e1;">(Bisa butuh waktu jika foto besar)</div>
 </div>
 
 <div class="header">
     <div class="header-content">
         <div class="title-area">
             <div class="main-title">SAMPLE PHOTO REPORT</div>
-            <div class="sub-title">FORM UPLOAD FOTO <span class="version-badge">v1.1</span></div>
+            <div class="sub-title">FORM UPLOAD FOTO <span class="version-badge">v1.2</span></div>
         </div>
         <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" type="button">DARK</button>
     </div>
@@ -149,6 +134,7 @@
 </form>
 
 <script>
+    // --- KONFIGURASI URL APPS SCRIPT ANDA ---
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxe_bqiHs0VeSLSoXPS8DsXWT3UCmc4YvF7OfcVmte4955MaEk-_sYTfUDKDR3qqDySXg/exec";
 
     function toggleTheme() { 
@@ -179,6 +165,7 @@
     const form = document.getElementById('inspectionForm');
     const btn = document.getElementById('submitBtn');
     const loader = document.getElementById('loading');
+    const loadingText = document.getElementById('loading-text');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -220,21 +207,28 @@
         loader.style.display = 'flex';
 
         try {
+            loadingText.innerText = "MENGOMPRES FOTO...";
+            
             let defectBase64Array = [];
             for(let i=0; i<defectInputs.length; i++){
-                let fileData = await getFileData(defectInputs[i]);
+                let fileData = await getCompressedFileData(defectInputs[i]);
                 if(fileData && fileData.size > 0) {
                     defectBase64Array.push(fileData);
                 }
             }
+
+            const file1Data = await getCompressedFileData(document.getElementById('file1'));
+            const file2Data = await getCompressedFileData(document.getElementById('file2'));
+
+            loadingText.innerText = "MENGIRIM KE GOOGLE SHEETS...";
 
             const payload = {
                 tanggal: tgl,
                 buyer: buyer,
                 style: style,
                 color: color,
-                file1: await getFileData(document.getElementById('file1')),
-                file2: await getFileData(document.getElementById('file2')),
+                file1: file1Data,
+                file2: file2Data,
                 defects: defectBase64Array 
             };
 
@@ -261,7 +255,6 @@
                 }).then(() => {
                     form.reset();
                     document.getElementById('tanggal').valueAsDate = new Date();
-                    
                     document.getElementById('defect-container').innerHTML = `
                         <div class="input-group defect-item">
                             <label>DEFECT 1 - DETAIL MASALAH</label>
@@ -278,65 +271,65 @@
             loader.style.display = 'none';
             btn.disabled = false;
             btn.innerText = "CONFIRM & UPLOAD REPORT";
-            Swal.fire('Gagal!', 'Terjadi kesalahan jaringan: ' + error.message, 'error');
+            Swal.fire('Gagal!', 'Terjadi kesalahan: ' + error.message, 'error');
         }
     });
 
-    async function getFileData(input) {
+    // --- FUNGSI KOMPRESI CERDAS MENGGUNAKAN LIBRARY ---
+    async function getCompressedFileData(input) {
         const file = input.files[0];
         if (!file) return { size: 0 }; 
-        
-        return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
+
+        // Opsi kompresi: targetkan maksimal 0.5 MB (500KB) dan dimensi max 1200px
+        const options = {
+            maxSizeMB: 0.45,         // Target aman di bawah 500KB
+            maxWidthOrHeight: 1200,  // Resolusi maksimal (menjaga rasio asli)
+            useWebWorker: true       // Menggunakan worker agar browser tidak freeze
+        };
+
+        try {
+            // Proses kompresi
+            const compressedFile = await imageCompression(file, options);
             
-            reader.onload = (event) => {
-                const img = new Image();
-                img.src = event.target.result;
-                
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    
-                    // Kompresi stabil di ~400KB
-                    const MAX_WIDTH = 1200;
-                    const MAX_HEIGHT = 1200;
-                    const QUALITY = 0.7; 
-                    
-                    let width = img.width;
-                    let height = img.height;
+            // Dapatkan dimensi asli gambar dari file yang sudah dikompresi
+            const imageBitmap = await createImageBitmap(compressedFile);
+            const width = imageBitmap.width;
+            const height = imageBitmap.height;
 
-                    if (width > height) {
-                        if (width > MAX_WIDTH) {
-                            height *= MAX_WIDTH / width;
-                            width = MAX_WIDTH;
-                        }
-                    } else {
-                        if (height > MAX_HEIGHT) {
-                            width *= MAX_HEIGHT / height;
-                            height = MAX_HEIGHT;
-                        }
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-                    
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-
-                    const compressedDataUrl = canvas.toDataURL('image/jpeg', QUALITY);
-                    const base64String = compressedDataUrl.split(',')[1];
-
+            // Ubah file hasil kompresi menjadi Base64
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(compressedFile);
+                reader.onloadend = () => {
+                    const base64String = reader.result.split(',')[1];
                     resolve({
                         base64: base64String,
-                        type: 'image/jpeg',
-                        name: file.name,
-                        size: Math.round(base64String.length * (3/4)),
-                        width: width,     // KUNCI RASIO: Kirim dimensi lebar asli ke server
-                        height: height    // KUNCI RASIO: Kirim dimensi tinggi asli ke server
+                        type: compressedFile.type || 'image/jpeg',
+                        name: compressedFile.name || file.name,
+                        size: compressedFile.size,
+                        width: width,   // Kirim dimensi lebar asli
+                        height: height  // Kirim dimensi tinggi asli
                     });
                 };
-            };
-        });
+            });
+        } catch (error) {
+            console.error("Gagal mengompres foto:", error);
+            // Fallback jika kompresi gagal, kirim file aslinya (meskipun besar)
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onloadend = () => {
+                    resolve({
+                        base64: reader.result.split(',')[1],
+                        type: file.type,
+                        name: file.name,
+                        size: file.size,
+                        width: 1200, // Fallback width
+                        height: 1200 // Fallback height
+                    });
+                };
+            });
+        }
     }
 </script>
 
