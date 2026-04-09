@@ -71,7 +71,7 @@
     <div class="header-content">
         <div class="title-area">
             <div class="main-title">SAMPLE PHOTO REPORT</div>
-            <div class="sub-title">FORM UPLOAD FOTO <span class="version-badge">v1</span></div>
+            <div class="sub-title">FORM UPLOAD FOTO <span class="version-badge">v1.1</span></div>
         </div>
         <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" type="button">DARK</button>
     </div>
@@ -280,15 +280,15 @@
         const file = input.files[0];
         if (!file) return { size: 0 }; 
 
-        // Opsi kompresi: targetkan maksimal 0.5 MB (500KB) dan dimensi max 1200px
+        // Opsi kompresi: targetkan maksimal ~0.4 MB (400KB) dan dimensi max 1200px
         const options = {
-            maxSizeMB: 0.45,         // Target aman di bawah 500KB
+            maxSizeMB: 0.4,          // Target aman di 400KB
             maxWidthOrHeight: 1200,  // Resolusi maksimal (menjaga rasio asli)
             useWebWorker: true       // Menggunakan worker agar browser tidak freeze
         };
 
         try {
-            // Proses kompresi
+            // Proses kompresi menggunakan browser-image-compression
             const compressedFile = await imageCompression(file, options);
             
             // Dapatkan dimensi asli gambar dari file yang sudah dikompresi
